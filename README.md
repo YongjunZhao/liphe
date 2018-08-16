@@ -1,5 +1,5 @@
 # liphe
-Library of Practical Homomorphic Encryption algorithms. (ver. 1.0, Aug 16th 2018)
+Library of Practical Homomorphic Encryption algorithms.
 ===
 
 Intruduction
