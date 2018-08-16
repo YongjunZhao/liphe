@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# test executables
+test_*zp
+test_*helib
