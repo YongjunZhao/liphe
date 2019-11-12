@@ -1,10 +1,11 @@
 CCFLAGS = -g --std=c++11 -Wall
 
-NTLINCDIR = ../../../ntl-10.5.0-multithread/include
-NTLLIBDIR = ../../../ntl-10.5.0/src
+NTLINCDIR = ~/some path/ntl-11.4.1/include
+NTLLIBDIR = ~/some path/ntl-11.4.1/src
 
-FHEINCDIR = ../../../HElib-multithread/src
-FHELIBDIR = ../../../HElib-multithread/src
+
+FHEINCDIR = ~/some path/helib_library_install/include/helib
+FHELIBDIR = ~/some path/helib_library_install/lib
 
 LIPHEDIR = ../include
 

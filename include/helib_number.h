@@ -111,22 +111,22 @@ public:
 		_val -= z._val;
 //std::cerr << "after -=\n";
 //std::cerr << "  level=" << _val.findBaseLevel() << ", log(noise/modulus)~" << _val.log_of_ratio() << endl;
-		_mul_depth = max(_mul_depth, z._mul_depth);
-		_add_depth = max(_add_depth, z._add_depth) + 1;
+		_mul_depth = std::max(_mul_depth, z._mul_depth);
+		_add_depth = std::max(_add_depth, z._add_depth) + 1;
 	}
 
 	void operator+=(const HelibNumber &z) {
 		assert(_keys == z._keys);
 		_val += z._val;
-		_mul_depth = max(_mul_depth, z._mul_depth);
-		_add_depth = max(_add_depth, z._add_depth) + 1;
+		_mul_depth = std::max(_mul_depth, z._mul_depth);
+		_add_depth = std::max(_add_depth, z._add_depth) + 1;
 	}
 
 	void operator*=(const HelibNumber &z) {
 		assert(_keys == z._keys);
 		_val.multiplyBy(z._val);
-		_mul_depth = max(_mul_depth, z._mul_depth) + 1;
-		_add_depth = max(_add_depth, z._add_depth);
+		_mul_depth = std::max(_mul_depth, z._mul_depth) + 1;
+		_add_depth = std::max(_add_depth, z._add_depth);
 	}
 
 
@@ -195,9 +195,11 @@ std::cout << "bit = " << bit.to_int() << std::endl;
 		return ret;
 	}
 
+/*
 	void reduceNoiseLevel() {
 		_val.modDownToLevel(_val.findBaseLevel());
 	}
+*/
 
 	friend std::ostream &operator<<(std::ostream &out, const HelibNumber &z);
 	friend std::istream &operator>>(std::istream &in, HelibNumber &z);

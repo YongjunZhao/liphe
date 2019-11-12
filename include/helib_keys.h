@@ -4,6 +4,18 @@
 #include <NTL/ZZ.h>
 #include <FHE.h>
 #include <EncryptedArray.h>
+#include <stdlib.h>
+#include <vector>
+
+// FIXME: The size of primes in the chain should be computed at run-time
+#if (NTL_SP_NBITS<44)
+#define FHE_p2Size NTL_SP_NBITS
+#else
+#define FHE_p2Size 44
+#endif
+#define FHE_p2Bound (1L<<FHE_p2Size)
+#define FHE_pSize (FHE_p2Size/2) /* The size of levels in the chain */
+
 
 class HelibKeys {
 private:
@@ -19,7 +31,7 @@ public:
 	HelibKeys(const HelibKeys &h) : _publicKey(h._publicKey), _secretKey(h._secretKey), _ea(h._ea), _context(h._context), _p(h._p), _r(h._r) {}
 	HelibKeys(FHEPubKey *pub, FHESecKey *sec, EncryptedArray *ea, FHEcontext *ctx) : _p(0), _r(0) { setKeys(pub, sec, ea, ctx); }
 
-	void initKeys(long s, long R, long p, long r, long d, long c, long k, long w, long L, long m, const Vec<long> &gens, const Vec<long> &ords);
+	void initKeys(long s, long R, long p, long r, long d, long c, long k, long w, long L, long m, const std::vector<long> &gens, const std::vector<long> &ords);
 	void initKeys_with_recrypt(long s, long p, long r, long d, long c, long k, long w, long L, long m);
 	void setKeys(FHEPubKey *pub, FHESecKey *sec, EncryptedArray *ea, FHEcontext *ctx)
 		{ _publicKey = pub; _secretKey = sec; _ea = ea; _context = ctx; }

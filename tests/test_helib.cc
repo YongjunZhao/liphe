@@ -17,11 +17,12 @@ int main(int, char**) {
 	long d = 1;
 	long c = 2;
 	long k = 80;
-	long L = 14;
+//	long L = 14;
+	long L = 350;
 	long s = 0;
 	long chosen_m = 0;
-	Vec<long> gens;
-	Vec<long> ords;
+	std::vector<long> gens;
+	std::vector<long> ords;
 
 	keys.initKeys(s, R, p, r, d, c, k, 64, L, chosen_m, gens, ords);
 	HelibNumber::set_global_keys(&keys);

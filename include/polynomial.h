@@ -9,7 +9,7 @@
 #include <NTL/ZZ_pX.h>
 
 #include "binomial_tournament.h"
-
+#include <functional>
 
 template<class Number>
 class Polynomial {

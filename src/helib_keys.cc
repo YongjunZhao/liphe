@@ -1,6 +1,9 @@
 #include "helib_keys.h"
+#include <vector>
+#include <FHEContext.h>
+#include <EncryptedArray.h>
 
-void HelibKeys::initKeys(long s, long R, long p, long r, long d, long c, long k, long w, long L, long chosen_m, const Vec<long> &gens, const Vec<long> &ords) {
+void HelibKeys::initKeys(long s, long R, long p, long r, long d, long c, long k, long w, long L, long chosen_m, const std::vector<long> &gens, const std::vector<long> &ords) {
 //  long R=1;
 //  long p=2;
 //  long r=1;
@@ -11,8 +14,8 @@ void HelibKeys::initKeys(long s, long R, long p, long r, long d, long c, long k,
 //  long s=0;
 //  long repeat=1;
 //  long chosen_m=0;
-//  Vec<long> gens;
-//  Vec<long> ords;
+//  std::vector<long> gens;
+//  std::vector<long> ords;
 //
 //  long seed=0;
 
@@ -28,7 +31,7 @@ void HelibKeys::initKeys(long s, long R, long p, long r, long d, long c, long k,
 	}
 	long m = FindM(k, L, c, p, d, s, chosen_m, true);
 
-	vector<long> gens1, ords1;
+	std::vector<long> gens1, ords1;
 	convert(gens1, gens);
 	convert(ords1, ords);
 
@@ -37,17 +40,17 @@ void HelibKeys::initKeys(long s, long R, long p, long r, long d, long c, long k,
 	_secretKey = new FHESecKey(*_context);
 	_secretKey->GenSecKey(w); // A Hamming-weight-w secret key
 
-	ZZX G;
+	NTL::ZZX G;
 
 	if (d == 0)
 		G = _context->alMod.getFactorsOverZZ()[0];
 	else
 		G = makeIrredPoly(p, d); 
 
-	cerr << "G = " << G << "\n";
-	cerr << "generating key-switching matrices... ";
+	std::cerr << "G = " << G << "\n";
+	std::cerr << "generating key-switching matrices... ";
 	addSome1DMatrices(*_secretKey); // compute key-switching matrices that we need
-	cerr << "done\n";
+	std::cerr << "done\n";
 
 //	FHESecKey *shadowPubKey = new FHESecKey(*_context);
 //	shadowPubKey->GenSecKey(w);
@@ -57,11 +60,11 @@ void HelibKeys::initKeys(long s, long R, long p, long r, long d, long c, long k,
 	_publicKey = _secretKey;
 
 
-	cerr << "computing masks and tables for rotation...";
+	std::cerr << "computing masks and tables for rotation...";
 	_ea = new EncryptedArray(*_context, G);
 
-	cerr << "ea.size == " << _ea->size() << std::endl;
-	cerr << "done\n";
+	std::cerr << "ea.size == " << _ea->size() << std::endl;
+	std::cerr << "done\n";
 }
 
 enum mValuesLegend { p = 0, phi_m,  m,    d, m1,  m2, m3,   g1,    g2,    g3,ord1,ord2,ord3, c_m };
@@ -263,9 +266,10 @@ void HelibKeys::decrypt(std::vector<long> &out, const Ctxt &b) {
 }
 
 void HelibKeys::print(const Ctxt &b) {
-	NewPlaintextArray myDecrypt(*_ea);
+//	NewPlaintextArray myDecrypt(*_ea);
+	PlaintextArray myDecrypt(*_ea);
 	_ea->decrypt(b, *_secretKey, myDecrypt);
-	ZZX myOutput;
+	NTL::ZZX myOutput;
 	_ea->encode(myOutput, myDecrypt);
 
 	std::cout << myOutput << std::endl;
@@ -277,8 +281,8 @@ void HelibKeys::print(const Ctxt &b) {
 
 void HelibKeys::write_to_file(std::ostream &out) {
 	writeContextBase(out, *_context);
-	out << *_context << endl;
-	out << *_secretKey << endl;
+	out << *_context << std::endl;
+	out << *_secretKey << std::endl;
 }
 
 void HelibKeys::read_from_file(std::istream &in) {

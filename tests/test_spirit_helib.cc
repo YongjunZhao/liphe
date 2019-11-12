@@ -12,7 +12,8 @@ int main(int argc, char**argv) {
 	HelibKeys keys;
 
 	int size = 0;
-	int L = 20;
+//	int L = 20;
+	int L = 500;
 
 	for (int argc_i = 0; argc_i < argc; ++argc_i) {
 		if (memcmp(argv[argc_i], "--L=", 4) == 0)
@@ -44,8 +45,8 @@ int main(int argc, char**argv) {
 	long k = 80;
 	long s = 0;
 	long chosen_m = 0;
-	Vec<long> gens;
-	Vec<long> ords;
+	std::vector<long> gens;
+	std::vector<long> ords;
 
 	keys.initKeys(s, R, p, r, d, c, k, 64, L, chosen_m, gens, ords);
 	HelibNumber::set_global_keys(&keys);

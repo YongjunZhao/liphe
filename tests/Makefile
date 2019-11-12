@@ -1,15 +1,17 @@
 CCFLAGS = -g --std=c++11 -Wall
 
-NTLINCDIR = ../../../ntl-10.5.0-multithread/include
-NTLLIBDIR = ../../../ntl-10.5.0-multithread/src
+NTLINCDIR = /some path/ntl-11.4.1/include
+NTLLIBDIR = /some path/tmp/ntl-11.4.1/src
 
-FHEINCDIR = ../../../HElib-multithread/src
-FHELIBDIR = ../../../HElib-multithread/src
+
+FHEINCDIR = /some path/helib_library_install/include/helib
+FHELIBDIR = /some path/helib_library_install/lib
 
 LIPHEINCDIR = ../include
 LIPHELIBDIR = ../src
 
-LIBS = -L$(LIPHELIBDIR) -lliphe $(FHELIBDIR)/fhe.a $(NTLLIBDIR)/ntl.a -lgmp -lpthread
+#LIBS = -L$(LIPHELIBDIR) -lliphe $(FHELIBDIR)/fhe.a $(NTLLIBDIR)/ntl.a -lgmp -lpthread
+LIBS = -L$(LIPHELIBDIR) -lliphe $(FHELIBDIR)/libhelib.a $(NTLLIBDIR)/ntl.a -lgmp -lpthread
 INCS = -I$(NTLINCDIR) -I$(FHEINCDIR) -I$(LIPHEINCDIR)
 
 TESTS = test_zp test_helib\
