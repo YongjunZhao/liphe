@@ -2,6 +2,21 @@
 Library of Practical Homomorphic Encryption algorithms.
 ===
 
+New Introduction
+---
+
+This repository is forked from https://github.com/HayimShaul/liphe. Some codes are revised due to updates in HElib. 
+
+The tests were successful on Ubuntu 18 with
+- g++ 7.4.0
+- HElib
+- NTL 11.4.1
+- GMP 6.1.2
+
+The original README is copied below.
+
+
+
 Intruduction
 ---
 
